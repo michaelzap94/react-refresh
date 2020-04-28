@@ -1,51 +1,57 @@
+//We need 2 components (App(determine location+month weather)) -> pass it -> (SeasonDisplay(shows icons and text based on props))
 import React from 'react';
 import ReactDOM from 'react-dom';
-//faker is a 3th party library that will generate random data
 import faker from 'faker';
-import CommentDetail from './CommentDetail';
-import ApprovalCard from './ApprovalCard';
+import SeasonDisplay from './SeasonDisplay';
 
-//Components are passed in as <CommentDetail/> instead of {CommentDetail}
 
-//FUNCTIONAL component
-const App = () => {
-    return  (
-        <div className="ui container comments">
-          <ApprovalCard>
-            <div>
-              <h4>Warning!</h4>
-              Are you sure you want to do this?
-            </div>
-          </ApprovalCard>
-    
-          <ApprovalCard>
-            <CommentDetail
-              author="Sam"
-              timeAgo="Today at 4:45PM"
-              content="Nice blog post"
-              avatar={faker.image.avatar()}
-            />
-          </ApprovalCard>
-    
-          <ApprovalCard>
-            <CommentDetail
-              author="Alex"
-              timeAgo="Today at 2:00AM"
-              content="I like the subject"
-              avatar={faker.image.avatar()}
-            />
-          </ApprovalCard>
-    
-          <ApprovalCard>
-            <CommentDetail
-              author="Jane"
-              timeAgo="Yesterday at 5:00PM"
-              content="I like the writing"
-              avatar={faker.image.avatar()}
-            />
-          </ApprovalCard>
-        </div>
-      );
+//FUNCTIONAL component - NO ASYNC, WHERE we need to wait for a result/data.
+// const App = () => {
+//     //build-in the browser/ NORMAL JS
+//     window.navigator.geolocation.getCurrentPosition(
+//         (position) => console.log(position),
+//         (err) => console.log(err)
+//     );
+//     //execute function
+
+//     return  (
+//         <div>hi</div>  
+//       );
+// }
+
+//CLASS component - can manage STATE
+class App extends React.Component {
+
+    constructor(props){
+        super(props);//WE HAVE TO CALL IT
+        //WE HAVE TO INITIALIZE THE STATE
+        this.state = {lat: null};
+
+        //build-in the browser/ NORMAL JS
+        window.navigator.geolocation.getCurrentPosition(
+            (position) => {
+                //setState({k:v}) -> ALWAYS: needs to be called to update the state.
+                //NEVER DO: this.state.lat = position.coords.latitude VERY BAD PRACTICE
+                this.setState({lat:position.coords.latitude})
+            },
+            (err) => console.log(err)
+        );
+    }
+
+    //execute function
+    render(){
+        // don't execute functions like this in render as RENDER will be called all the time
+        // //build-in the browser/ NORMAL JS
+        // window.navigator.geolocation.getCurrentPosition(
+        //     (position) => console.log(position),
+        //     (err) => console.log(err)
+        // );
+
+        //WE NEED TO RETURN html
+        return  (
+        <div>Latitude: {this.state.lat}</div>  
+        );
+    }
 }
 
 ReactDOM.render(
