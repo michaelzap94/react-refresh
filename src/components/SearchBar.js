@@ -7,11 +7,19 @@ class SearchBar extends React.Component{
     //     //YOU WILL NOT BE ABLE TO CALL this IN METHODS unless you bind it when you call it.
     //     console.log(event.target.value);
     // }
+    // constructor(props){
+    //     super(props);
+    //     this.state = {term:'Hi'};
+    // }
+
     state = {term:'Hi'};
 
-    _onFormSubmit(event){
+    _onFormSubmit = (event) => {
         //as everytime the user preses enter in an input inside a form, we submit(by default)/refresh the screen;
         event.preventDefault();
+
+        console.log(this.state.term);//we CANNOT access this from within class methods unless we bind it.
+        //
     }
     render(){
         return (
