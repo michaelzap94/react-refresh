@@ -17,9 +17,8 @@ class SearchBar extends React.Component{
     _onFormSubmit = (event) => {
         //as everytime the user preses enter in an input inside a form, we submit(by default)/refresh the screen;
         event.preventDefault();
-
-        console.log(this.state.term);//we CANNOT access this from within class methods unless we bind it.
-        //
+        //console.log(this.state.term);//we CANNOT access this from within class methods unless we bind it or use arrow functions.
+        this.props._onSubmit(this.state.term);
     }
     render(){
         return (
