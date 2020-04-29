@@ -3,7 +3,7 @@
     display: grid;
     /* create as many columns as it's possible, eacth column being 250px width min and 1fr occupy all available space */
     grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-    /* distance between grids(margin) */
+    /* distance between grids(margin-vertical margin-horizontal) */
     grid-gap: 0 10px;
     /* height of rows */
     grid-auto-rows: 10px;
