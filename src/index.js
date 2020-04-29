@@ -31,15 +31,7 @@ class App extends React.Component {
     //ALTERNATE WAY TO INIT STATE:
     state = {lat: null}
 
-    //execute function
-    render(){
-        // don't execute functions like this in render as RENDER will be called all the time
-        // //build-in the browser/ NORMAL JS
-        // window.navigator.geolocation.getCurrentPosition(
-        //     (position) => console.log(position),
-        //     (err) => console.log(err)
-        // );
-
+    mRenderContent(){
         if(this.state.errorMessage && !this.state.lat){
             return <SeasonDisplay errorMessage={this.state.errorMessage}/>
             //return <div>Error: {this.state.errorMessage}</div>
@@ -53,6 +45,21 @@ class App extends React.Component {
 
         return <Spinner message = "Please accept location permission"/>
         // return <div>Loading...</div>
+    }
+
+    //execute function
+    render(){
+        // don't execute functions like this in render as RENDER will be called all the time
+        // //build-in the browser/ NORMAL JS
+        // window.navigator.geolocation.getCurrentPosition(
+        //     (position) => console.log(position),
+        //     (err) => console.log(err)
+        // );
+
+        //IN THE RENDER WE ONLY WANT ONE return statement, therefore, move your logic out of it.
+        return (
+        <div className="border red">{this.mRenderContent()}</div>
+        );
 
         //WE NEED TO RETURN html
     }
