@@ -33,11 +33,12 @@ class App extends React.Component {
     //AXIOS using async/await
     _onSearchSubmitCallback = async (term) => {
         console.log(term);
-        //axios returns a promise so using await we can extract the result/error
-        const axiosPromiseResponse = await unsplash.get('/search/photos', {
-            params: {query: term}
-        });
         try {
+            //axios returns a promise so using await we can extract the result/error
+            const axiosPromiseResponse = await unsplash.get('/search/photos', {
+                params: {query: term}
+            });
+      
             // console.log('length:', axiosPromiseResponse.data.results.length);
             this.setState({images: axiosPromiseResponse.data.results});
         } catch (error) {
