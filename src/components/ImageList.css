@@ -1,12 +1,17 @@
 /* CSS GRID SYSTEM */
 .image-list {
     display: grid;
+    /* create as many columns as it's possible, eacth column being 250px width min and 1fr occupy all available space */
     grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    /* distance between grids(margin) */
     grid-gap: 0 10px;
+    /* height of rows */
     grid-auto-rows: 10px;
   }
   
   .image-list img {
+    /* width of image */
     width: 250px;
+    /* this image needs to be allocated 2 cells worth of space, next image will be shown in next cell */
     grid-row-end: span 2;
   }
