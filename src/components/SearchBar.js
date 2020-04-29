@@ -8,6 +8,11 @@ class SearchBar extends React.Component{
     //     console.log(event.target.value);
     // }
     state = {term:'Hi'};
+
+    _onFormSubmit(event){
+        //as everytime the user preses enter in an input inside a form, we submit(by default)/refresh the screen;
+        event.preventDefault();
+    }
     render(){
         return (
             <div className="ui segment">
