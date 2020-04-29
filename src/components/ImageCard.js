@@ -18,7 +18,7 @@ class ImageCard extends React.Component {
 
       const height = this.imageRef.current.clientHeight;//html img properties will be inside 'current'
       //calculate how many spans(number of cells) this image will need to occupy.
-      const spans = Math.ceil(height / 10);
+      const spans = Math.ceil(height / 10);//actual height of img / height of each cell we specified in CSS
       this.setState({ spans });
     };
   
