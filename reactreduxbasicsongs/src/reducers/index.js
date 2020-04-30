@@ -19,6 +19,7 @@ const selectedSongReducer = (selectedSong = null, action) => {
     }
 };
 
+//The keys in this object, will be the keys in the STATE object in the STORE.
 const _combinedReducers = combineReducers({
                                             songs: songsReducer,
                                             selectedSong: selectedSongReducer
