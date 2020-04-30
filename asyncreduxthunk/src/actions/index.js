@@ -48,6 +48,7 @@ export const fetchUser = (userId) => {
 //===============================================================
 //ActionCreator that will use ActionCreators internally to merge or do some operation using multiple ActionCreators
 //When we call internalAC inside an AC, we need to ensure we manually call dispatch(internalAC),
+//This function will first get all posts and then will create an Action for UserDispatch doing only one api call per userId
 export const fetchPostsAndUsers = (id) => {
     return async(dispatch, getState) => {
         //when we dispatch a function: redux-thunk will catch it and run it
@@ -63,12 +64,11 @@ export const fetchPostsAndUsers = (id) => {
         //in this case we don't need to await for it because we don't depend on each other. 
         //we only depended on the posts being fetched first.
 
-        // _.chain(getState().postsReducer)
+        // _.chain(getState().postsReducer)//chain this value array to the first argument of function map
         // .map('userId')
-        // .uniq()
-        // .forEach(id => dispatch(fetchUser(id)))
-        // .map('userId')
-        // .value();
+        // .uniq()//result from map(getState().postsReducer, 'userId') will be chained to uniq()
+        // .forEach(id => dispatch(fetchUser(id)))//the result of uniq will be chained to this
+        // .value(); //this is to execute _.chain()
     }
 };
 // async (dispatch, getState) => {
