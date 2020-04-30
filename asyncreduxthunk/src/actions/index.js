@@ -25,7 +25,7 @@ export const fetchPosts = () => {
             type: 'FETCH_POSTS',
             payload : response.data
         }
-        dispatch(action)
+        dispatch(action);
     }
 }
 //SAME AS ABOVE BUT USING ES6 SYNTAX
@@ -34,6 +34,66 @@ export const fetchPosts = () => {
 //     dispatch({ type: 'FETCH_POSTS', payload: response.data });
 //   };
 //============================================================
+//BASIC
+export const fetchUser = (userId) => {
+    return async (dispatch) => {
+        const response = await jsonPlaceholder.get(`/users/${userId}`);
+        const action =  {
+            type: 'FETCH_USER',
+            payload : response.data
+        }
+        dispatch(action);
+    }
+}
+//===============================================================
+//ActionCreator that will use ActionCreators internally to merge or do some operation using multiple ActionCreators
+//When we call internalAC inside an AC, we need to ensure we manually call dispatch(internalAC),
+export const fetchPostsAndUsers = (id) => {
+    return async(dispatch, getState) => {
+        //when we dispatch a function: redux-thunk will catch it and run it
+        //once it runs it, it will pass a dispatch argument to dispatch its own Action internally
+        await dispatch(fetchPosts());//manually dispatching fetchPosts() and wait here before we move onto the next line
+        //after doing this// our STATE should be updated and contain the Posts, that can be retrieved using getState getState().postsReducer
 
+        const userIds = _.uniq(//return an array of unique items
+            _.map(getState().postsReducer, 'userId')//return an array of userId's
+        );
+        //now that we have an array of unique items, we need to dispatch our fetchUser() Action passing the id of each item
+        userIds.forEach(id => dispatch(fetchUser(id)));
+        //in this case we don't need to await for it because we don't depend on each other. 
+        //we only depended on the posts being fetched first.
 
+        // _.chain(getState().postsReducer)
+        // .map('userId')
+        // .uniq()
+        // .forEach(id => dispatch(fetchUser(id)))
+        // .map('userId')
+        // .value();
+    }
+};
+// async (dispatch, getState) => {
+//     await dispatch(fetchPosts());
+  
+//     _.chain(getState().posts)
+//       .map('userId')
+//       .uniq()
+//       .forEach(id => dispatch(fetchUser(id)))
+//       .value();
+//   };
 
+//============================================================
+// YOU CAN NEVER REFETCH An Action with _.memoize()
+//_.memoize() -> caches the first result and then return the cached result
+// export const fetchUser = (id) => {
+//     return (dispatch) => {
+//         return _fetchUser(id, dispatch);
+//     }
+// }
+// //we memoize the api call and dispatch outside. one time only
+// const _fetchUser = _.memoize(
+//     async (id, dispatch) => {
+//         const response = await jsonPlaceholder.get(`/users/${id}`);
+//         dispatch({ type: 'FETCH_USER', payload: response.data });
+//     }
+// );
+//============================================================
