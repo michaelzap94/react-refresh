@@ -1,13 +1,12 @@
 import React from 'react';
-import {BrowserRouter, Route, Link} from 'react-router-dom';
+import {BrowserRouter, Route} from 'react-router-dom';
 
-const PageOne = () => {
-    return <div>PageOne <Link to="/pageTwo">go to two</Link></div>
-}
-
-const PageTwo = () => {
-    return <div>PageTwo <Link to="/">go to one</Link></div>
-}
+import Header from './Header';
+import StreamList from './streams/StreamList';
+import StreamCreate from './streams/StreamCreate';
+import StreamDelete from './streams/StreamDelete';
+import StreamEdit from './streams/StreamEdit';
+import StreamShow from './streams/StreamShow';
 
 //you can have duplicated Route components both pointing at the same path: as you can have deeply nested components
 //exact -> so that you only show the page if the '/path' is exact:
@@ -18,10 +17,15 @@ const PageTwo = () => {
 function App() {
   return (
     <div className="ui container">
+        
         <BrowserRouter>
-            <Route path="/" exact component={PageOne}/>
-            {/* <Route path="/" exact component={PageOne}/> */}
-            <Route path="/pageTwo" component={PageTwo}/>
+        <Header/>
+            {/* <Route path="/" exact component={StreamList}/> */}
+            <Route path="/" exact component={StreamList} />
+            <Route path="/streams/new" exact component={StreamCreate} />
+            <Route path="/streams/edit/:id" exact component={StreamEdit} />
+            <Route path="/streams/delete/:id" exact component={StreamDelete} />
+            <Route path="/streams/:id" exact component={StreamShow} />
         </BrowserRouter>
     </div>
   );
