@@ -33,6 +33,7 @@ class PostList extends React.Component {
       }
 
     render(){
+      //first time this.props.posts will be [], after the componentDidMount(), we'll fetch the posts
         return (
             <div className="ui relaxed divided list">{this._renderList()}</div>
           );

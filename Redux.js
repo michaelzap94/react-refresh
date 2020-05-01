@@ -11,7 +11,6 @@ const createPolicy = (name, amount) => {
     }
   }
 }
-
 //people dropping off a form to DeletePolicy: Action Creator
 const deletePolicy = (name) => {
   //Creates an Action(Form) which will have a type and payload
@@ -93,14 +92,12 @@ const policyHistoryReducer = (oldListOfPolicies = [], action) => {
 
 //BEGIN: STORE=======================
 const { createStore, combineReducers } = Redux;
-
 //wire up all together
 const ourDepartmentsReducers = combineReducers({
   claimsHistoryReducer,//claimsHistoryReducer: claimsHistoryReducer
   accountingReducer,//accountingReducer: accountingReducer
   policyHistoryReducer//claimsHistoryReducer: claimsHistoryReducer
 });
-
 const store = createStore(ourDepartmentsReducers);
 //store; -> Object: contains references to all Reducers, all the States AND Data produced by them.
 //END: STORE=======================

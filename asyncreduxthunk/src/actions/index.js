@@ -53,7 +53,12 @@ export const fetchPostsAndUsers = (id) => {
     return async(dispatch, getState) => {
         //when we dispatch a function: redux-thunk will catch it and run it
         //once it runs it, it will pass a dispatch argument to dispatch its own Action internally
-        await dispatch(fetchPosts());//manually dispatching fetchPosts() and wait here before we move onto the next line
+        await dispatch(fetchPosts());
+        //IMPORTANT: ---> after this finishes, All of the REDUCERS will be informed and the components LISTENING for posts state change in the mapStateToProps, will be rerendered
+        //manually dispatching fetchPosts() and wait here before we move onto the next line
+        //REMEMBER: .connect() will automatically do .dispatch(fetchPostsAndUsers()) BUT it will not handle the internal ActionCreators, 
+        //that's why redux-thunk will handle Function returned and provide dispatch argument so you can handle the Actions internally.
+
         //after doing this// our STATE should be updated and contain the Posts, that can be retrieved using getState getState().postsReducer
 
         const userIds = _.uniq(//return an array of unique items
