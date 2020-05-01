@@ -1,12 +1,12 @@
 import React from 'react';
-import {BrowserRouter, Route} from 'react-router-dom';
+import {BrowserRouter, Route, Link} from 'react-router-dom';
 
 const PageOne = () => {
-    return <div>PageOne</div>
+    return <div>PageOne <Link to="/pageTwo">go to two</Link></div>
 }
 
 const PageTwo = () => {
-    return <div>PageTwo</div>
+    return <div>PageTwo <Link to="/">go to one</Link></div>
 }
 
 //you can have duplicated Route components both pointing at the same path: as you can have deeply nested components
@@ -20,7 +20,7 @@ function App() {
     <div className="ui container">
         <BrowserRouter>
             <Route path="/" exact component={PageOne}/>
-            <Route path="/" exact component={PageOne}/>
+            {/* <Route path="/" exact component={PageOne}/> */}
             <Route path="/pageTwo" component={PageTwo}/>
         </BrowserRouter>
     </div>
