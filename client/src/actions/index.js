@@ -1,4 +1,5 @@
 import streams from '../apis/streams';
+import history from '../history';
 import {SIGN_IN, SIGN_OUT, CREATE_STREAM, FETCH_STREAMS, FETCH_STREAM, DELETE_STREAM, EDIT_STREAM} from './types';
 //NO PAYLOAD, SINCE the reducer will turn the boolean flag to true or false if the type is SIGN_IN OR SIGN_OUT
 export const signInAC = (userId) => {
@@ -25,6 +26,7 @@ export const createStreamAC = (formValues) => {
             payload: response.data
         }
         dispatch(action);
+        history.push('/');//programatic navigation
     }
 }
 
