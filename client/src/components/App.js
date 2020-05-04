@@ -1,5 +1,7 @@
 import React from 'react';
-import {BrowserRouter, Route} from 'react-router-dom';
+//import {BrowserRouter, Route} from 'react-router-dom';
+import {Router, Route} from 'react-router-dom';
+import history from '../history';//custom history, we need Router(plain router)
 
 import Header from './Header';
 import StreamList from './streams/StreamList';
@@ -18,7 +20,7 @@ function App() {
   return (
     <div className="ui container">
         
-        <BrowserRouter>
+        <Router history={history}>
         <Header/>
             {/* <Route path="/" exact component={StreamList}/> */}
             <Route path="/" exact component={StreamList} />
@@ -26,7 +28,7 @@ function App() {
             <Route path="/streams/edit/:id" exact component={StreamEdit} />
             <Route path="/streams/delete/:id" exact component={StreamDelete} />
             <Route path="/streams/:id" exact component={StreamShow} />
-        </BrowserRouter>
+        </Router>
     </div>
   );
 }
