@@ -1,3 +1,4 @@
+import streams from '../apis/streams';
 import {SIGN_IN, SIGN_OUT} from './types';
 //NO PAYLOAD, SINCE the reducer will turn the boolean flag to true or false if the type is SIGN_IN OR SIGN_OUT
 export const signInAC = (userId) => {
@@ -11,5 +12,11 @@ export const signInAC = (userId) => {
 export const signOutAC = () => {
     return {
         type: SIGN_OUT
+    }
+}
+
+export const createStreamAC = (formValues) => {
+    return async (dispatch, getState) => {
+        streams.post('/streams', formValues);
     }
 }

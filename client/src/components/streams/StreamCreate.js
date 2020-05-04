@@ -1,6 +1,8 @@
 import React from 'react';
 import {Field, reduxForm} from 'redux-form';
 
+import {createStreamAC} from '../../actions';
+
 class StreamCreate extends React.Component {
 
   _renderError = (meta) => {
