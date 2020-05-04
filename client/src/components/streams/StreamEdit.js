@@ -1,18 +1,19 @@
 import React from 'react';
+import _ from 'lodash';
 import {connect} from 'react-redux';
 import {fetchStreamAC, editStreamAC} from '../../actions';
+import StreamForm from './StreamForm';
 class StreamEdit extends React.Component {
   componentDidMount() {
     //this will make sure we fetch, this stream AT LEAST once everytime we visit this page component.
     this.props.fetchStreamAC(this.props.match.params.id);
   }
 
-  onSubmit = formValues => {
+  _onSubmit = formValues => {
     this.props.editStreamAC(this.props.match.params.id, formValues);
   };
 
   render() {
-    console.log('render');
     //initially this may be null, if no streams are availabe. eg: if we hit the url directly, without having gone through the streams/list page first or we refresh the page
     if (!this.props.stream) {
       return <div>Loading...</div>;
@@ -20,7 +21,9 @@ class StreamEdit extends React.Component {
 
     return (
         <div className="ui container">
-            StreamEdit
+          <h3>Edit a Stream</h3>
+          {/* NO LODASH <StreamForm onSubmitCallback={this._onSubmit} initialValues={{title: this.props.stream.title, description: this.props.stream.description}}/> */}
+          <StreamForm onSubmitCallback={this._onSubmit} initialValues={_.pick(this.props.stream, 'title', 'description')}/>
         </div>
       );
   }
@@ -37,7 +40,6 @@ const mapStateToProps = (state, ownProps) => {
   const listOfStreamsObjects = state.streamsReducer;//this will return an array of object containing the list of all streams
   //THEREFORE: we need to make sure we initialize, the state array at least with the element we want to modify by calling  fetchStream at some point in componentDidMound()
   const stream = listOfStreamsObjects[streamId];
-  console.log(stream);
   return {stream};
 }
 
