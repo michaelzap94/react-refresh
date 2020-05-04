@@ -1,5 +1,5 @@
 import streams from '../apis/streams';
-import {SIGN_IN, SIGN_OUT} from './types';
+import {SIGN_IN, SIGN_OUT, CREATE_STREAM, FETCH_STREAMS, FETCH_STREAM, DELETE_STREAM, EDIT_STREAM} from './types';
 //NO PAYLOAD, SINCE the reducer will turn the boolean flag to true or false if the type is SIGN_IN OR SIGN_OUT
 export const signInAC = (userId) => {
     return {
@@ -17,6 +17,49 @@ export const signOutAC = () => {
 
 export const createStreamAC = (formValues) => {
     return async (dispatch, getState) => {
-        streams.post('/streams', formValues);//this will respond with the data inserted + id of new record row
+        const response = await streams.post('/streams', formValues);//this will respond with the data inserted + id of new record row
+        const action = {
+            type: CREATE_STREAM,
+            payload: response.data
+        }
+        dispatch(action);
     }
+}
+
+export const fetchAllStreamsAC = () => {
+    return async (dispatch, getState) => {
+        const response = await streams.get('/streams');
+        const action = {
+            type: FETCH_STREAMS,
+            payload: response.data
+        }
+        dispatch(action);
+    }
+}
+
+export const fetchStreamAC = (streamId) =>  async (dispatch, getState) => {
+    const response = await streams.get(`/streams/${streamId}`);
+    const action = {
+        type: FETCH_STREAM,
+        payload: response.data
+    }
+    dispatch(action);
+}
+
+export const editStreamAC = (streamId, formValues) => async (dispatch, getState) => {
+    const response = await streams.put(`/streams/${streamId}`, formValues);//this will respond with the data inserted + id of record row
+    const action = {
+        type: EDIT_STREAM,
+        payload: response.data
+    }
+    dispatch(action);
+}
+
+export const deleteStreamAC = (streamId) => async (dispatch, getState) => {
+    const response = await streams.delete(`/streams/${streamId}`);//this will respond with the data inserted + id of new record row
+    const action = {
+        type: DELETE_STREAM,
+        payload: streamId
+    }
+    dispatch(action);
 }
