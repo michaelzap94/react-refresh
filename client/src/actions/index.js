@@ -51,9 +51,11 @@ export const fetchStreamAC = (streamId) =>  async (dispatch, getState) => {
 }
 
 export const editStreamAC = (streamId, formValues) => async (dispatch, getState) => {
-    //PUT will overwrite the whole object with this object, IF some fields are missing in the new object, then the old ones will be marked as null
-    //-> IMPORTANT: the old values will not be carried over
-    const response = await streams.put(`/streams/${streamId}`, formValues);//this will respond with the data inserted + id of record row
+    //PUT will REPLACE the whole object with this object, IF some fields are missing in the new object, then the old ones will be marked as null
+    //-> IMPORTANT: the old values will not be carried over, 
+    //const response = await streams.put(`/streams/${streamId}`, formValues);//this will respond with the data inserted + id of record row
+    //THEREFORE, if you only want to update SOME fields, use PATCH
+    const response = await streams.patch(`/streams/${streamId}`, formValues);//this will respond with the data inserted + id of record row
     const action = {
         type: EDIT_STREAM,
         payload: response.data
