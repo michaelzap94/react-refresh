@@ -16,8 +16,10 @@ export const signOutAC = () => {
 }
 
 export const createStreamAC = (formValues) => {
-    return async (dispatch, getState) => {
-        const response = await streams.post('/streams', formValues);//this will respond with the data inserted + id of new record row
+    return async (dispatch, getState) => {//redux-thunk will return these 2 arguments
+        //console.log(getState());//you can get the current State data
+        const {userId} = getState().authReducer;
+        const response = await streams.post('/streams', {...formValues, userId});//this will respond with the data inserted + id of new record row
         const action = {
             type: CREATE_STREAM,
             payload: response.data
