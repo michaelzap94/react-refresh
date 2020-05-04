@@ -1,4 +1,5 @@
 import React from 'react';
+import {connect} from 'react-redux';
 import {Field, reduxForm} from 'redux-form';
 
 import {createStreamAC} from '../../actions';
@@ -33,11 +34,11 @@ class StreamCreate extends React.Component {
     );
   };
 
-  _onSubmit(formValues){
+  _onSubmit = (formValues) => {
     // event does not exist in redux-form as they'll handle it for us, it will pass form values
     // event.proventDefault();// no need as redux-form will handle this
     //console.log(formValues);//{title: "fsdfdf", description: "fdsfsd"}
-
+    this.props.createStreamAC(formValues);//call the ActionCreator createStream to make the api request
   }
 
   render(){
@@ -85,4 +86,6 @@ const reduxFormConnect = reduxForm({
   validate: _validate
 })(StreamCreate);
 
-export default reduxFormConnect;
+const connectComponent = connect(null, {createStreamAC})(reduxFormConnect);
+
+export default connectComponent;

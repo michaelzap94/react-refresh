@@ -17,6 +17,6 @@ export const signOutAC = () => {
 
 export const createStreamAC = (formValues) => {
     return async (dispatch, getState) => {
-        streams.post('/streams', formValues);
+        streams.post('/streams', formValues);//this will respond with the data inserted + id of new record row
     }
 }
