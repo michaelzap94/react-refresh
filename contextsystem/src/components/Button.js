@@ -28,6 +28,22 @@ class Button extends React.Component {
       </ColorContext.Consumer>
     );
   }
+
+  // render() {
+  //   return (
+  //     <ColorContext.Consumer>
+  //       {(valueColor)=> 
+  //           (
+  //           <button className={`ui button ${valueColor}`}>
+  //             <LanguageContext.Consumer>
+  //               {(value) => this.renderSubmitText(value)}
+  //             </LanguageContext.Consumer>
+  //           </button>
+  //           )         
+  //       }
+  //     </ColorContext.Consumer>
+  //   );
+  // }
 }
 
 export default Button;
