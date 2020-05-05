@@ -1,6 +1,7 @@
 import React, {useState} from 'react';
 
 import ResourceList from './ResourceList';
+import UserList from './UserList';
 
 const App = () => {
     //state = {resource: 'posts'};
@@ -10,15 +11,16 @@ const App = () => {
     return (
         <div>
             <div>
-            <div>
-                {/* <button onClick={() => this.setState({resource: 'posts'})}>Posts</button>
-                <button onClick={() => this.setState({resource: 'todos'})}>Todos</button> */}
-                <button onClick={() => setResource('posts')}>Posts</button>
-                <button onClick={() => setResource('todos')}>Todos</button>
-            </div>
-            {/* {this.state.resource} */}
-            {/* {resource} */}
-            <ResourceList resource={resource} />
+                <UserList />
+                <div>
+                    {/* <button onClick={() => this.setState({resource: 'posts'})}>Posts</button>
+                    <button onClick={() => this.setState({resource: 'todos'})}>Todos</button> */}
+                    <button onClick={() => setResource('posts')}>Posts</button>
+                    <button onClick={() => setResource('todos')}>Todos</button>
+                </div>
+                {/* {this.state.resource} */}
+                {/* {resource} */}
+                <ResourceList resource={resource} />
             </div>
         </div>
     );
