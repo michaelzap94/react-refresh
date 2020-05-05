@@ -66,9 +66,11 @@ export const editStreamAC = (streamId, formValues) => async (dispatch, getState)
 
 export const deleteStreamAC = (streamId) => async (dispatch, getState) => {
     const response = await streams.delete(`/streams/${streamId}`);//this will respond with the data inserted + id of new record row
+    //console.log(response);//response.status === 200 ---> OK, if response.status !== 200 -> SOME ERROR HAPPENED
     const action = {
         type: DELETE_STREAM,
         payload: streamId
     }
     dispatch(action);
+    history.push('/');//programatic navigation
 }
