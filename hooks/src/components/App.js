@@ -1,8 +1,12 @@
 import React, {useState} from 'react';
 
+import ResourceList from './ResourceList';
+
 const App = () => {
     //state = {resource: 'posts'};
-    const [resource, setResource] = useState('posts');
+    //we can init as many useState(INITIAL_VALUE) as we want, to init multiple state variables
+    const [resource, setResource] = useState('posts');//[resource, setResource] can be named anything | useState(INITIAL_VALUE)
+    //const [count, setCount] = useState(0);// isntead of: state = {resource: 'posts', count: 0};
     return (
         <div>
             <div>
@@ -13,7 +17,8 @@ const App = () => {
                 <button onClick={() => setResource('todos')}>Todos</button>
             </div>
             {/* {this.state.resource} */}
-            {resource}
+            {/* {resource} */}
+            <ResourceList resource={resource} />
             </div>
         </div>
     );
